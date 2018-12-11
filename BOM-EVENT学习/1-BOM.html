@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script>
+	/*  
+		BOM: Broweser Object Model  浏览器对象模型
+		JS操作浏览器的操作
+
+
+		BOM中大部分的 方法在window对象下边的方法下
+		window
+
+		window
+		--------------------------------------------------
+		open() 打开一个新的窗口
+		如果是window对象下边的方法 window. 默认可以不写
+		open('打开的url','页面的打开方式');
+			如果url为空，则默认打开一个空白页面
+			如果打开方式为空，则默认为打开新窗口方式(_self,_blank)
+
+		有返回值，返回值为 打开新窗口的window对象
+		--------------------------------------------------
+		close() 关闭窗口
+			1、ff:默认无法关闭
+			2、chrome:默认正常关闭
+			3、ie:询问用户关闭
+
+		可以关闭在本窗口通过js打开的新窗口
+		--------------------------------------------------
+		window.navigator.userAgent 得到浏览的的一些基本信息；可以来判断当前浏览器的类型
+		简单的判断是不是IE
+		if(window.navigator.userAgent.indexOf('MSIE') != -1){
+	
+		}else{}
+		--------------------------------------------------
+		window.location 显示地址栏的信息 对象
+		window.location.href 得到地址栏中的信息
+		window.location.search 得到地址栏?后边的信息
+		window.location.hash 得到地址栏 后边#后边的内容
+
+	 */
+	 window.onload = function(){
+	 	var opener = null;
+	 	var aInput = document.getElementsByTagName('input');
+	 	aInput[0].onclick = function(){
+	 		opener = window.open();
+
+	 		opener.document.body.style.background = 'red';
+	 	}
+	 }
+</script>
+<body>
+	<input type="button" value="按钮">
+<script>
+</script>
+	
+</body>
+</html>

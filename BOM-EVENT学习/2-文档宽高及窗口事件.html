@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文档宽高及窗口事件</title>
+</head>
+<style>
+	*{
+		margin:0;padding:0;
+	} 
+</style>
+<script>
+	/* 
+		窗口尺寸与大小
+		------------------------------------
+		可视区的尺寸
+
+		clientWidth
+		clientHeight
+
+		获取文档元素 的宽和高
+		document.documentElement.clientWidth
+		document.documentElement.clientHeight
+
+		滚动条滚动的距离
+		document.body.scrollTop/scrollLeft
+
+		兼容性问题
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+		滚动内容高
+		var h = oDiv.scrollHeight  (Width)
+
+		文档高度
+		document.documentElement.offsetHeight;
+		document.body.offsetHeight
+		
+	 */
+	 window.onload = function(){
+	 	alert(document.documentElement.clientWidth);
+	 	var oDiv = document.getElementById('mainBox');
+
+	 }
+	 document.onclick = function(){
+	 	console.log(document.documentElement.scrollTop);
+	 	var oDiv = document.getElementById('mainBox');
+	 	alert(oDiv.scrollHeight);
+
+	 }
+</script>
+
+<body style="height:1500px">
+	<div class="mainBox" id="mainBox" style="width:200px;height:100px;border:1px solid red;padding:5px;margin:5px">
+		<div style="width:200px;height:200px;background:blue"></div>
+	</div>
+
+	
+</body>
+</html>
