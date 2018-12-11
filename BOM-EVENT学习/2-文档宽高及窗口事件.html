@@ -12,13 +12,13 @@
 <script>
 	/* 
 		窗口尺寸与大小
-		------------------------------------
+		---------------------------------------------------------------------
 		可视区的尺寸
 
 		clientWidth
 		clientHeight
 
-		获取文档元素 的宽和高
+		获取文档元素 可视区的宽和高
 		document.documentElement.clientWidth
 		document.documentElement.clientHeight
 
@@ -32,8 +32,15 @@
 		var h = oDiv.scrollHeight  (Width)
 
 		文档高度
-		document.documentElement.offsetHeight;
-		document.body.offsetHeight
+		document.documentElement.offsetHeight;(子元素的margin/padding/border) ie 不认
+		document.body.offsetHeight;(推荐使用这个)
+
+		---------------------------------------------------------------------
+		onscroll:当滚动条滚动的时候触发
+		onresize:当可视区域变化的时候触发
+		这两个方法都是以一定的时间间隔去算的
+		
+		
 		
 	 */
 	 window.onload = function(){
@@ -46,6 +53,9 @@
 	 	var oDiv = document.getElementById('mainBox');
 	 	alert(oDiv.scrollHeight);
 
+	 }
+	 window.onscroll = function(){
+	 	console.log('------');
 	 }
 </script>
 

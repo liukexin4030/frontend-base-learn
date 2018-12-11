@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件详解1</title>
+</head>
+<script>
+	/*
+		事件详解
+		-----------------------------------------------------------
+		焦点事件
+		onfocus/onblur
+		焦点：使浏览器能够区分用户输入的对象，当一个元素有焦点的时候，那么他就可以接收用户的输入。
+		我们可以通过一些方式给元素设置焦点
+			1、点击
+			2、tab
+			3、js
+
+		不是所有的元素都能够接收焦点，能够响应用户操作的元素才有焦点
+		-----------------------------------------------------------
+		obj.focus() 给指定的元素设置焦点
+		obj.blur() 取消制定元素的焦点
+		obj.select() 选择指定元素里边的文本内容
+
+		-----------------------------------------------------------
+		Event对象 事件的核心（当一个事件发生的时候，当前事件的详细信息对保存在event对象中）
+
+		事件函数： 事件调用的函数，一个函数是不是事件函数、不在定义的决定，而是取决于这个函数调用的时候
+
+		用来获取事件的详细信息：鼠标位置、键盘按键
+
+		ie/chrome:event是一个内置全局对象
+		ff:事件对像是通过事件函数的第一个参数传入的
+		Event对象的兼容性 var ev = ev || window.event
+
+		Event对象下获取鼠标的位置 clientX、clientY
+
+		---------------------------------------------------------------------
+		事件流-事件冒泡机制
+		当一个元素接收到一个事件的时候，会把他的所有传播给他的父级，一直传播到顶层window
+		事件冒泡跟样式表现没有关系，跟代码结构有关系
+
+		阻止事件冒泡：当前要阻止冒泡的事件函数中添加 ev.cancelBubble = true;
+		ev.stopPropagation() 和 ev.preventDefault()
+
+		---------------------------------------------------------------------
+		事件流-事件捕获（事件绑定的第二种形式）
+
+		事件绑定的第一种形式
+		obj.onclick = fn1;
+		以赋值的形式绑定，再次赋值的时候，后边会覆盖前边的
+
+		给一个对象的同一个事件绑定多个不同的函数
+
+		ie: document.attachEvent('onclick',fn1);
+		标准：obj.addEventListener(事件名称，事件函数，是否捕获);是否捕获默认为false 
+		false：冒泡，true：捕获
+		
+		区别:事件名称不同前者有on，后者无on，
+			attachEvent 没有捕获；
+			事件执行的顺序 非标准ie与标准ie 有区别； 
+			this指向有问题 前者指向window，后者指向触发该事件的对象
+
+		call 函数下的一个方法
+		大部分 f1() == f1.call();
+		但是 call方法的第一个参数可以改变函数执行过程中的内部this的指向
+		call方法第二个参数开始就是原来函数的参数
+		document.attachEvent('onclick',function(){
+			f1.call(document);
+	
+		});
+
+
+
+
+
+
+
+	*/
+	window.onload = function(){
+		var oText = document.getElementById('text1');
+		oText.onfocus = function(){
+			this.value='';
+		}
+		oText.onblur = function(){
+			console.log(this.value);
+		};
+		//onmousemove 鼠标移动事件 ---触发频率不是像素，而是时间间隔
+		var oBox = document.getElementById('box');
+		document.onmousemove = function(ev){
+			var ev = ev || event ;
+			oBox.style.top = ev.clientY+'px';
+			oBox.style.left = ev.clientX+'px';
+
+		}
+
+	}
+	document.onclick = function(event){
+		//for in 遍历对象
+		/*for(var val in event){
+			console.log(val+ '=' +event[val]);
+		}*/
+		
+	}
+	
+
+</script>
+<body>
+	<input type="text" name="" id="text1" value="123456">
+	<div id="box"></div>
+</body>
+</html>
+<style>
+	#box{width:200px;height:200px;border:1px solid blue;background:pink;position: absolute;}
+</style>
