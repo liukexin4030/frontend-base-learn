@@ -4,6 +4,73 @@
 	<meta charset="UTF-8">
 	<title>事件详解2</title>
 </head>
+<script>
+	/*
+		事件捕获
+		作用力与反作用力
+
+		告诉div1,如果有一个‘出去’事件触发了你，你就去执行fn1(冒泡)
+			oDiv1.addEventListener('click',fn1,false);
+			oDiv2.addEventListener('click',fn1,false);
+			oDiv3.addEventListener('click',fn1,false);
+
+		告诉div1,如果有一个‘进来’事件触发了你，你就去执行fn1
+			oDiv1.addEventListener('click',fn1,true);
+			oDiv2.addEventListener('click',fn1,true);
+			oDiv3.addEventListener('click',fn1,true);
+
+		---------------------------------------------------------
+		事件的取消
+
+		取消事件的绑定函数
+		2种
+		document.onclick = fn1;
+		document.onclick = null;
+
+		ie:obj.detachEvent(事件名称，事件函数);
+		标准：obj.removeEvetListener(事件名称，事件函数，是否捕获);
+
+		---------------------------------------------------------
+		键盘事件
+		onkeydown 按下的时候触发
+		onkeyup 抬起的时候触发
+
+		event.keyCode : 数字类型
+
+			ctrlKey,shiftKey,altKey 布尔值
+
+
+		ducoment.onkeydown = function(ev){
+			var ev = ev || event;
+			ev.keyCode;
+		}
+		不是所有的元素都能接收键盘事件，能够相应用户输入的元素，能够接收焦点的元素才能够接收键盘事件
+
+		onkeydown:如果按下补抬起，会连续触发
+		 设置了一个间隔时间会连续触发
+		 用定时器解决
+
+		document 是可以接收键盘事件的
+		document.onkeydown = function(ev) {
+			var ev = ev || event;
+			switch(ev.keyCode){
+				case 37:
+					oDiv.style.left = oDiv.offsetLeft-10 + 'px'
+
+			}
+		}
+		---------------------------------------------------------
+		事件的默认行为_默认事件
+		当一个事件发生的时候 浏览器自己会默认做的事情
+
+		怎么阻止？
+		当前这个行为是什么事件触发的，然后在这个事件的处理函数中使用return false；
+		
+		右键菜单事件（环境菜单）
+		oncontextmenu 
+
+	*/
+</script>
 <body>
 	
 </body>
