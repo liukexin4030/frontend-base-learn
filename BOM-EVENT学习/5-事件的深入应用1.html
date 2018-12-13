@@ -7,11 +7,65 @@
 	<script>
 		/*
 			拖拽的原理
-			
+			一个拖拽的流程 由三大事件组成
+			onmousedown/onmouseomove/onmouseup
 
+			-------------------------------------------------
+			当移动速度快的话，鼠标跑到div外边去了
+			解决办法 把onmousemove 给赋给文档document
+
+			拖拽的一些问题及解决办法
+			1、当页面上有文字的时候，选中 之后 div的拖拽就失效了
+				原因：选中文字可以拖拽，属于浏览器的默认行为；
+						浏览器默认的拖拽效果
+						解决办法：
+								标准：（阻止默认行为；）
+								非标准ie：
+									obj.setCapture()//设置全局捕获
+									监听后续发生的所有事件
+									兼容性问题
+										ie:有
+										ff:有，但是没有效果
+										chrome：没有
+
+				有图片会有同样的问题，解决办法同上
 		*/
+		window.onload = function(){
+			var oBox = document.getElementById('box');
+			oBox.onmousedown = function(ev){
+				var ev = ev || event;
+
+				var disX = ev.clientX - this.offsetLeft ;
+				var disY = ev.clientY - this.offsetTop;
+				console.log(disX,disY); 
+				//down下去设置全局捕获
+				if(oDiv.setCapture){
+					oDiv.setCapture();
+				}
+				document.onmousemove = function(ev){
+					var ev = ev || event;
+					oBox.style.left = ev.clientX - disX + 'px';
+					oBox.style.top = ev.clientY - disY + 'px';
+
+				}
+				document.onmouseup = function(){
+					document.onmousemove = document.onmouseup = null;
+					//释放全局捕获
+					if(oDiv.releaseCapture){
+						oDiv.releaseCapture();
+					}
+				}
+				return false;
+			}
+		}
 	</script>
+	<style>
+		.box{width:200px;height:200px;border:2px solid red;background:green;position:absolute;}
+	</style>
 <body>
+	<div class="box" id="box">
+		
+	</div>
 	
 </body>
 </html>

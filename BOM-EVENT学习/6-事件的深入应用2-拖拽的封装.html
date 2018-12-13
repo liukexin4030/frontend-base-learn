@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽的封装</title>
+</head>
+<script>
+	/* 限制范围的拖拽与磁性吸附 -限制在可视区范围内*/
+
+	window.onload = function(){
+		var oCon = document.getElementById('content');
+		var oBox = document.getElementById('box');
+		drag(oBox,oCon);
+		function drag(obj,pro){
+			var pro = typeof(pro) == 'undefined'?document:pro;
+			var proT = pro.offsetTop,
+				proL = pro.offsetLeft,
+				proR = pro.offsetLeft + pro.offsetWidth,
+				proB = pro.offsetTop + pro.offsetHeight;
+			console.log(proT,proL,proR,proB);
+			obj.onmousedown = function(ev){
+				var ev = ev || event;
+				var disX = ev.clientX - obj.offsetLeft;
+				console.log('====='+disX);
+				var disY = ev.clientY - obj.offsetTop;
+				document.onmousemove = function(ev){
+					var ev = ev || evenet;
+					//左边
+					var insertL = ev.clientX - disX - proL;
+
+					if(insertL < 10){
+						insetL = proL;
+					}else{
+						insetL = ev.clientX - disX;
+					}
+					obj.style.left = insertL + 'px';
+					obj.style.top = ev.clientY - disY + 'px';
+				}
+				document.onmouseup = function(ev){
+					var ev = ev || event;
+					document.onmousemove = document.onmouseup = null;
+				}
+			}
+			
+		}
+	}
+
+
+
+
+</script>
+<body>
+	<div class="content" id=content>
+		<div class="box" id="box">
+			
+		</div>
+	</div>
+	
+</body>
+</html>
+<style>
+	#content {
+		width:1000px;
+		height:300px;
+		border:1px solid #ddd;
+		background:#f9f9f9;
+		margin:50px auto;
+		position:relative;
+	}
+	#box {
+		width:80px;height:80px;
+		border:1px solid #8d89aa;
+		background:#8d89a1;position:absolute;
+	}
+</style>
